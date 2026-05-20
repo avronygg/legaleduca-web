@@ -1,30 +1,13 @@
 ---
 interface Props {
   class?: string;
-  iconOnly?: boolean;
 }
-const { class: className = "", iconOnly = false } = Astro.props;
-const gid = "lg-" + Math.random().toString(36).slice(2, 8);
+const { class: className = "" } = Astro.props;
 ---
-<span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <svg class="h-8 w-auto shrink-0" viewBox="0 0 24 26" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id={gid} x1="2" y1="2" x2="22" y2="24" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#e6266e"></stop>
-        <stop offset="0.5" stop-color="#fb7a2a"></stop>
-        <stop offset="1" stop-color="#fbb03b"></stop>
-      </linearGradient>
-    </defs>
-    <g stroke={`url(#${gid})`} stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4 7h16M12 6.4V22M7.5 22h9M6 7v3M3 10l3 4 3-4M18 7v3M15 10l3 4 3-4"></path>
-    </g>
-    <circle cx="12" cy="4.2" r="1.7" fill={`url(#${gid})`}></circle>
-  </svg>
-  {
-    !iconOnly && (
-      <span class="font-serif text-xl font-semibold leading-none tracking-tight">
-        <span class="text-brand-800">Legal</span><span class="text-gradient">Educa</span>
-      </span>
-    )
-  }
-</span>
+<img
+  src="/logo-legaleduca.png"
+  alt="LegalEduca · Asesoría jurídica educacional"
+  width="240"
+  height="60"
+  class={`h-9 w-auto sm:h-10 ${className}`}
+/>
