@@ -17,7 +17,7 @@ export const site = {
   address: "",
   // Web3Forms: crea una clave gratuita en https://web3forms.com indicando
   // abogadapriscilameza@gmail.com como correo destino. Pega aquí tu Access Key.
-  web3formsKey: "TU_ACCESS_KEY_DE_WEB3FORMS",
+  web3formsKey: "e60e1719-a553-46a5-823f-eb3a86a10602",
 };
 
 export const nav = [
