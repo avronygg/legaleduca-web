@@ -1,0 +1,58 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  src?: string;
+  alt?: string;
+  ratio?: "16/9" | "4/3" | "3/2" | "1/1" | "3/4" | "21/9";
+  label?: string;
+  rounded?: string;
+  class?: string;
+}
+const {
+  src,
+  alt = "",
+  ratio = "16/9",
+  label = "Espacio para imagen",
+  rounded = "rounded-3xl",
+  class: className = "",
+} = Astro.props;
+---
+{
+  src ? (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      style={`aspect-ratio:${ratio}`}
+      class:list={[
+        "h-full w-full border border-line object-cover",
+        rounded,
+        className,
+      ]}
+    />
+  ) : (
+    <div
+      style={`aspect-ratio:${ratio}`}
+      class:list={[
+        "relative flex w-full items-center justify-center overflow-hidden border border-dashed border-brand-200 bg-cream-alt",
+        rounded,
+        className,
+      ]}
+      role="img"
+      aria-label={alt || label}
+    >
+      <div
+        class="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[0.12] blur-2xl brand-gradient"
+        aria-hidden="true"
+      />
+      <div class="relative flex flex-col items-center gap-2 text-brand-400">
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white text-brand-500 ring-1 ring-line">
+          <Icon name="image" class="h-6 w-6" />
+        </span>
+        <span class="text-xs font-medium uppercase tracking-wider">{label}</span>
+      </div>
+    </div>
+  )
+}

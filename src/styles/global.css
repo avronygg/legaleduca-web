@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/inter";
+
+/* ============ Design tokens ============ */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Base neutra cálida */
+  --color-cream: #faf9f7;
+  --color-cream-alt: #f3f1ed;
+  --color-ink: #1a1623;
+  --color-ink-soft: #4b4651;
+  --color-line: #e7e2dc;
+
+  /* Púrpura ancla (marca) */
+  --color-brand-50: #f7f2fb;
+  --color-brand-100: #ece0f5;
+  --color-brand-200: #d8c2ea;
+  --color-brand-300: #bd99da;
+  --color-brand-400: #9b66c3;
+  --color-brand-500: #7d42a8;
+  --color-brand-600: #5b2a86;
+  --color-brand-700: #4a2270;
+  --color-brand-800: #381a55;
+  --color-brand-900: #28123d;
+
+  /* Acentos del degradado del logo */
+  --color-magenta: #e6266e;
+  --color-coral: #f0392b;
+  --color-flame: #fb7a2a;
+  --color-gold: #fbb03b;
+}
+
+/* ============ Base ============ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif font-semibold tracking-tight text-balance;
+    font-optical-sizing: auto;
+  }
+  p { @apply text-pretty; }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection { background: var(--color-brand-600); color: #fff; }
+}
+
+/* ============ Marca: degradado ============ */
+.brand-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-magenta) 0%,
+    var(--color-coral) 38%,
+    var(--color-flame) 70%,
+    var(--color-gold) 100%
+  );
+}
+.text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-magenta) 0%,
+    var(--color-coral) 42%,
+    var(--color-flame) 78%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gradient-rule {
+  height: 3px;
+  border: 0;
+  border-radius: 9999px;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-magenta),
+    var(--color-flame),
+    var(--color-gold)
+  );
+}
+
+/* Fondo de grilla sutil */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(91, 42, 134, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(91, 42, 134, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* ============ Animaciones de scroll ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float-soft 7s ease-in-out infinite; }
+
+/* ============ Accesibilidad: movimiento reducido ============ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-float { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

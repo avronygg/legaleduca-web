@@ -1,0 +1,34 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}
+const { eyebrow, title, subtitle } = Astro.props;
+---
+<section class="relative overflow-hidden border-b border-line pt-32 pb-14 sm:pt-40 sm:pb-20">
+  <div class="absolute inset-0 -z-10 bg-grid"></div>
+  <div
+    class="absolute -top-28 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full opacity-[0.09] blur-3xl brand-gradient"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+    <span
+      class="reveal inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-600"
+    >
+      <span class="brand-gradient h-1.5 w-1.5 rounded-full"></span>
+      {eyebrow}
+    </span>
+    <h1 class="reveal reveal-d1 mt-5 text-4xl leading-[1.08] sm:text-5xl md:text-[3.4rem]">
+      <Fragment set:html={title} />
+    </h1>
+    {
+      subtitle && (
+        <p class="reveal reveal-d2 mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          {subtitle}
+        </p>
+      )
+    }
+  </div>
+</section>

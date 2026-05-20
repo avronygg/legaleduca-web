@@ -1,0 +1,107 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import Figure from "../components/Figure.astro";
+import Icon from "../components/Icon.astro";
+import { services } from "../config";
+
+const steps = [
+  { n: "01", title: "Conversación inicial", text: "Escuchamos tu caso sin compromiso y resolvemos tus primeras dudas." },
+  { n: "02", title: "Análisis legal", text: "Estudiamos los antecedentes y definimos la mejor estrategia para ti." },
+  { n: "03", title: "Plan de acción", text: "Te presentamos pasos claros, plazos y alternativas con total transparencia." },
+  { n: "04", title: "Acompañamiento", text: "Te representamos y acompañamos hasta resolver, manteniéndote informado." },
+];
+---
+<Layout
+  title="Servicios"
+  description="Asesoría jurídica de alto nivel, control de subvenciones, convivencia escolar y representación ante organismos públicos."
+>
+  <PageHero
+    eyebrow="Servicios"
+    title="Soluciones legales para el <span class='text-gradient'>mundo educativo</span>"
+    subtitle="Asesoría especializada para que tu establecimiento cumpla la normativa, evite sanciones y fortalezca su comunidad."
+  />
+
+  <!-- Detalle de servicios -->
+  <section class="py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl space-y-20 px-4 sm:space-y-24 sm:px-6 lg:px-8">
+      {
+        services.map((service, i) => (
+          <div
+            id={service.slug}
+            class="grid scroll-mt-28 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+          >
+            <div class:list={["reveal", i % 2 === 1 ? "lg:order-2" : ""]}>
+              <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+                <Icon name={service.icon} class="h-7 w-7" />
+              </span>
+              <p class="mt-5 text-xs font-semibold uppercase tracking-wider text-brand-500">
+                {service.audience}
+              </p>
+              <h2 class="mt-2 text-3xl sm:text-4xl">{service.title}</h2>
+              <p class="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
+                {service.summary}
+              </p>
+              <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                {service.benefits.map((b) => (
+                  <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                      <Icon name="check" class="h-3 w-3" />
+                    </span>
+                    <span class="text-sm leading-relaxed text-ink-soft">{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <div class="mt-7">
+                <Button href="/contacto" icon="arrow">Consultar por este servicio</Button>
+              </div>
+            </div>
+
+            <div class:list={["reveal reveal-d1", i % 2 === 1 ? "lg:order-1" : ""]}>
+              <Figure ratio="4/3" label={`Imagen · ${service.title}`} alt={service.title} />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Proceso de trabajo -->
+  <section class="border-y border-line bg-brand-900 py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        light
+        eyebrow="Cómo trabajamos"
+        title="Un proceso claro, de principio a fin"
+        subtitle="Sabrás siempre en qué etapa está tu caso y cuál es el siguiente paso."
+      />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((step, i) => (
+            <div class:list={["reveal rounded-2xl border border-white/10 bg-white/5 p-7", `reveal-d${i % 4}`]}>
+              <span class="font-serif text-3xl font-semibold text-gradient">{step.n}</span>
+              <h3 class="mt-3 text-lg text-white">{step.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-brand-100/70">{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="reveal text-3xl sm:text-4xl">¿No sabes qué servicio necesitas?</h2>
+      <p class="reveal reveal-d1 mx-auto mt-4 max-w-xl text-ink-soft">
+        Cuéntanos tu situación y te orientaremos hacia la mejor solución para tu
+        caso.
+      </p>
+      <div class="reveal reveal-d2 mt-8">
+        <Button href="/contacto" size="lg" icon="arrow">Habla con un especialista</Button>
+      </div>
+    </div>
+  </section>
+</Layout>

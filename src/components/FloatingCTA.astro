@@ -1,0 +1,92 @@
+---
+import Icon from "./Icon.astro";
+---
+<div
+  id="floating-cta"
+  class="fixed inset-x-4 bottom-4 z-40 hidden sm:inset-x-auto sm:right-5 sm:bottom-5 sm:max-w-sm"
+>
+  <div
+    id="floating-cta-card"
+    class="pointer-events-none translate-y-6 opacity-0 transition-all duration-500 ease-out"
+  >
+    <div
+      class="relative flex items-start gap-3 rounded-2xl border border-line bg-white/95 p-4 pr-10 shadow-xl shadow-brand-900/10 backdrop-blur"
+    >
+      <span
+        class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl brand-gradient text-white"
+      >
+        <Icon name="scale" class="h-6 w-6" />
+      </span>
+      <div class="min-w-0">
+        <p class="font-serif text-base font-semibold leading-tight text-ink">
+          ¿Necesitas asesoría?
+        </p>
+        <p class="mt-0.5 text-sm text-ink-soft">
+          Conversemos sobre el caso de tu institución.
+        </p>
+        <a
+          href="/contacto"
+          class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-800"
+        >
+          Ir al formulario de contacto
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+      <button
+        id="floating-cta-close"
+        type="button"
+        aria-label="Cerrar aviso"
+        class="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-lg text-ink-soft transition-colors hover:bg-cream-alt hover:text-ink"
+      >
+        <Icon name="close" class="h-4 w-4" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let ctaTimer: ReturnType<typeof setTimeout> | undefined;
+  let ctaScroll: (() => void) | undefined;
+
+  function initFloatingCTA() {
+    const wrap = document.getElementById("floating-cta");
+    const card = document.getElementById("floating-cta-card");
+    if (!wrap || !card) return;
+
+    // Limpieza de una posible inicialización anterior (View Transitions).
+    if (ctaTimer) clearTimeout(ctaTimer);
+    if (ctaScroll) window.removeEventListener("scroll", ctaScroll);
+
+    const onContact = location.pathname.startsWith("/contacto");
+    const dismissed = sessionStorage.getItem("legaleduca-cta-dismissed") === "1";
+    if (onContact || dismissed) {
+      wrap.classList.add("hidden");
+      return;
+    }
+
+    wrap.classList.remove("hidden");
+    let shown = false;
+    const reveal = () => {
+      if (shown) return;
+      shown = true;
+      card.classList.remove("opacity-0", "translate-y-6", "pointer-events-none");
+      if (ctaScroll) window.removeEventListener("scroll", ctaScroll);
+    };
+
+    ctaScroll = () => {
+      if (window.scrollY > 500) reveal();
+    };
+    window.addEventListener("scroll", ctaScroll, { passive: true });
+    ctaTimer = setTimeout(reveal, 7000);
+
+    const closeBtn = document.getElementById("floating-cta-close");
+    closeBtn?.addEventListener("click", () => {
+      if (ctaTimer) clearTimeout(ctaTimer);
+      card.classList.add("opacity-0", "translate-y-6", "pointer-events-none");
+      sessionStorage.setItem("legaleduca-cta-dismissed", "1");
+      setTimeout(() => wrap.classList.add("hidden"), 400);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initFloatingCTA);
+</script>

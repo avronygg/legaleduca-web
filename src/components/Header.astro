@@ -1,0 +1,90 @@
+---
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+import { nav } from "../config";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div
+      id="header-bar"
+      class="mt-3 flex items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all duration-300 sm:px-5"
+    >
+      <a href="/" class="rounded-lg" aria-label={`Inicio - LegalEduca`}>
+        <Logo />
+      </a>
+
+      <nav class="hidden items-center gap-1 md:flex" aria-label="Principal">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                "rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
+                isActive(item.href)
+                  ? "text-brand-700"
+                  : "text-ink-soft hover:text-ink",
+              ]}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="hidden md:block">
+        <Button href="/contacto" size="md" icon="arrow">Agendar asesoría</Button>
+      </div>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-brand-50 md:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="menu-open h-6 w-6" />
+        <Icon name="close" class="menu-close hidden h-6 w-6" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil -->
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-line bg-cream/95 backdrop-blur-lg md:hidden"
+  >
+    <nav class="mx-auto max-w-7xl space-y-1 px-4 py-4" aria-label="Móvil">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
+              isActive(item.href)
+                ? "bg-brand-50 text-brand-700"
+                : "text-ink hover:bg-cream-alt",
+            ]}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="pt-2">
+        <Button href="/contacto" size="lg" icon="arrow" class="w-full">
+          Agendar asesoría
+        </Button>
+      </div>
+    </nav>
+  </div>
+</header>

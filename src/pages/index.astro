@@ -1,0 +1,181 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Button from "../components/Button.astro";
+import Figure from "../components/Figure.astro";
+import Icon from "../components/Icon.astro";
+import { services, differentiators } from "../config";
+
+const featured = services.slice(0, 3);
+const heroPoints = [
+  "Liderazgo ex Superintendencia de Educación",
+  "Auditoría especializada de subvenciones",
+  "Representación ante organismos públicos",
+];
+---
+<Layout>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
+    <div class="absolute inset-0 -z-10 bg-grid"></div>
+    <div
+      class="absolute -top-24 left-1/2 -z-10 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full opacity-[0.10] blur-3xl brand-gradient"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6">
+      <span
+        class="reveal inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-brand-700 backdrop-blur"
+      >
+        <span class="brand-gradient h-1.5 w-1.5 rounded-full"></span>
+        Asesoría jurídica en educación
+      </span>
+
+      <h1
+        class="reveal reveal-d1 mt-7 text-4xl leading-[1.06] sm:text-5xl md:text-6xl"
+      >
+        Protegemos la gestión legal de tu
+        <span class="text-gradient">establecimiento educacional</span>
+      </h1>
+
+      <p
+        class="reveal reveal-d2 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft"
+      >
+        Somos un equipo de abogadas expertas en educación y auditores en
+        rendición de subvenciones. Te ayudamos a cumplir la normativa, prevenir
+        multas y fortalecer la convivencia escolar.
+      </p>
+
+      <div
+        class="reveal reveal-d3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+      >
+        <Button href="/contacto" size="lg" icon="arrow">Solicita una asesoría</Button>
+        <Button href="/servicios" size="lg" variant="outline">
+          Ver servicios
+        </Button>
+      </div>
+
+      <div
+        class="reveal reveal-d4 mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-ink-soft"
+      >
+        {
+          heroPoints.map((point) => (
+            <span class="inline-flex items-center gap-2">
+              <Icon name="check" class="h-4 w-4 text-brand-500" />
+              {point}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Imagen institucional -->
+    <div class="reveal reveal-d4 mx-auto mt-14 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <Figure ratio="21/9" label="Imagen institucional" alt="Equipo de Legal Educa" />
+    </div>
+  </section>
+
+  <!-- ===================== SERVICIOS ===================== -->
+  <section class="border-y border-line bg-cream-alt py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Nuestros servicios"
+        title="Asesoría integral para una <span class='text-gradient'>gestión sin riesgos</span>"
+        subtitle="Acompañamos a los establecimientos educacionales en cada frente legal, desde el cumplimiento normativo hasta la representación ante organismos públicos."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          featured.map((service, i) => (
+            <ServiceCard service={service} index={i} href={`/servicios#${service.slug}`} />
+          ))
+        }
+      </div>
+      <div class="reveal mt-10 text-center">
+        <Button href="/servicios" variant="solid" icon="arrow">
+          Ver todos los servicios
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROPÓSITO ===================== -->
+  <section class="py-20 sm:py-28">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+      <div>
+        <span class="reveal mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+          <span class="brand-gradient h-1.5 w-1.5 rounded-full"></span>
+          Nuestro propósito
+        </span>
+        <h2 class="reveal reveal-d1 text-3xl leading-[1.12] sm:text-4xl">
+          Ponemos la experiencia al servicio de tu comunidad educativa
+        </h2>
+        <p class="reveal reveal-d2 mt-5 text-base leading-relaxed text-ink-soft sm:text-lg">
+          Conocemos la normativa educacional desde adentro. Por eso traducimos la
+          complejidad legal en pasos claros y acompañamos cada caso con rigor y
+          cercanía, anticipando los riesgos antes de que ocurran.
+        </p>
+        <div class="reveal reveal-d3 mt-8">
+          <Button href="/quienes-somos" variant="outline" icon="arrow">
+            Conoce quiénes somos
+          </Button>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <Figure ratio="4/3" label="Equipo / oficina" alt="Equipo de abogadas de Legal Educa" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== POR QUÉ ELEGIRNOS ===================== -->
+  <section class="border-y border-line bg-cream-alt py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Por qué elegirnos"
+        title="Lo que nos distingue"
+        subtitle="Una combinación poco común: experiencia desde la fiscalización y especialización en rendición de subvenciones."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          differentiators.map((d, i) => (
+            <div class:list={["reveal rounded-2xl border border-line bg-white p-7", `reveal-d${i % 4}`]}>
+              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+                <Icon name={d.icon} class="h-6 w-6" />
+              </span>
+              <h3 class="mt-5 text-lg text-ink">{d.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-soft">{d.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA FINAL ===================== -->
+  <section class="py-20 sm:py-28">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div
+        class="reveal relative overflow-hidden rounded-3xl border border-line bg-brand-900 px-6 py-14 text-center sm:px-12 sm:py-16"
+      >
+        <div
+          class="absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full opacity-25 blur-3xl brand-gradient"
+          aria-hidden="true"
+        >
+        </div>
+        <h2 class="text-3xl leading-tight text-white sm:text-4xl">
+          ¿Necesitas orientación legal para tu institución?
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-base text-brand-100/80 sm:text-lg">
+          Cuéntanos tu caso a través del formulario. La primera conversación es
+          sin compromiso y te responderemos a la brevedad.
+        </p>
+        <div class="mt-8">
+          <Button href="/contacto" size="lg" variant="white" icon="arrow">
+            Ir al formulario de contacto
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

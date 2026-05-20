@@ -1,0 +1,93 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { site, nav, services } from "../config";
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-line bg-cream-alt">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div class="lg:col-span-1">
+        <Logo />
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+          {site.description}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-sans text-sm font-semibold text-ink">Navegación</h3>
+        <ul class="mt-4 space-y-2.5">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-ink-soft transition-colors hover:text-brand-700"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-sans text-sm font-semibold text-ink">Servicios</h3>
+        <ul class="mt-4 space-y-2.5">
+          {
+            services.map((s) => (
+              <li>
+                <a
+                  href={`/servicios#${s.slug}`}
+                  class="text-sm text-ink-soft transition-colors hover:text-brand-700"
+                >
+                  {s.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-sans text-sm font-semibold text-ink">Contacto</h3>
+        <ul class="mt-4 space-y-3 text-sm text-ink-soft">
+          <li class="flex items-start gap-2.5">
+            <Icon name="mail" class="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
+            <a href={`mailto:${site.email}`} class="break-words transition-colors hover:text-brand-700">{site.email}</a>
+          </li>
+          {
+            site.phone && (
+              <li class="flex items-center gap-2.5">
+                <Icon name="phone" class="h-4 w-4 shrink-0 text-brand-500" />
+                <a href={`tel:${site.phoneHref}`} class="transition-colors hover:text-brand-700">{site.phone}</a>
+              </li>
+            )
+          }
+          {
+            site.address && (
+              <li class="flex items-start gap-2.5">
+                <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
+                <span>{site.address}</span>
+              </li>
+            )
+          }
+          <li class="flex items-start gap-2.5">
+            <Icon name="users" class="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
+            <span>{site.contactPerson} — {site.contactRole}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-line pt-6 sm:flex-row">
+      <p class="text-xs text-ink-soft">
+        &copy; {year} {site.legalName}. Todos los derechos reservados.
+      </p>
+      <p class="text-xs text-ink-soft">
+        Hecho con dedicación en Chile.
+      </p>
+    </div>
+  </div>
+</footer>
