@@ -60,7 +60,7 @@ const steps = [
             </div>
 
             <div class:list={["reveal reveal-d1", i % 2 === 1 ? "lg:order-1" : ""]}>
-              <Figure ratio="4/3" label={`Imagen · ${service.title}`} alt={service.title} />
+              <Figure src={`/servicio-${i + 1}.png`} ratio="4/3" alt={service.title} />
             </div>
           </div>
         ))
