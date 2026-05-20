@@ -3,9 +3,9 @@
 export const site = {
   name: "LegalEduca",
   legalName: "Legal Educa",
-  tagline: "Asesoría jurídica especializada en educación",
+  tagline: "Asesoría jurídica educacional en Chile",
   description:
-    "Equipo de abogadas expertas en educación y auditores en rendición de subvenciones. Asesoramos a establecimientos educacionales en cumplimiento normativo, subvenciones y convivencia escolar.",
+    "Asesoría jurídica educacional en Chile. Abogadas expertas en derecho educacional y auditores en rendición de subvenciones para tu establecimiento.",
   url: "https://legaleduca.cl",
   // Contacto real:
   email: "abogadapriscilameza@gmail.com",
