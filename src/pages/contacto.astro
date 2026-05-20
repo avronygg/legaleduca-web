@@ -101,19 +101,19 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
                 <label class={labelCls} for="name">Nombre completo *</label>
-                <input class={inputCls} type="text" id="name" name="name" required placeholder="Tu nombre" autocomplete="name" />
+                <input class={inputCls} type="text" id="name" name="Nombre" required placeholder="Tu nombre" autocomplete="name" />
               </div>
               <div>
                 <label class={labelCls} for="email">Correo electrónico *</label>
-                <input class={inputCls} type="email" id="email" name="email" required placeholder="tu@correo.cl" autocomplete="email" />
+                <input class={inputCls} type="email" id="email" name="Correo electrónico" required placeholder="tu@correo.cl" autocomplete="email" />
               </div>
               <div>
                 <label class={labelCls} for="phone">Teléfono</label>
-                <input class={inputCls} type="tel" id="phone" name="phone" placeholder="+56 9 ..." autocomplete="tel" />
+                <input class={inputCls} type="tel" id="phone" name="Teléfono" placeholder="+56 9 ..." autocomplete="tel" />
               </div>
               <div>
                 <label class={labelCls} for="topic">Tema de consulta</label>
-                <select class={inputCls} id="topic" name="topic">
+                <select class={inputCls} id="topic" name="Tema de consulta">
                   <option value="">Selecciona una opción</option>
                   {services.map((s) => <option value={s.title}>{s.title}</option>)}
                   <option value="Otro">Otro</option>
@@ -123,7 +123,7 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
 
             <div class="mt-5">
               <label class={labelCls} for="message">Mensaje *</label>
-              <textarea class={`${inputCls} resize-y`} id="message" name="message" rows="5" required placeholder="Cuéntanos brevemente tu caso..."></textarea>
+              <textarea class={`${inputCls} resize-y`} id="message" name="Mensaje" rows="5" required placeholder="Cuéntanos brevemente tu caso..."></textarea>
             </div>
 
             <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -195,7 +195,9 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
         status.classList.add("hidden");
 
         try {
-          const data = Object.fromEntries(new FormData(form));
+          const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+          // Reply-To: al responder el correo, va directo a quien escribió.
+          data.replyto = data["Correo electrónico"] || "";
           const res = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
