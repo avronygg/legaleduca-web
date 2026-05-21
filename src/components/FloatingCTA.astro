@@ -12,10 +12,18 @@ import Icon from "./Icon.astro";
     <div
       class="relative flex items-start gap-3 rounded-2xl border border-line bg-white/95 p-4 pr-10 shadow-xl shadow-brand-900/10 backdrop-blur"
     >
-      <span
-        class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl brand-gradient text-white"
-      >
-        <Icon name="scale" class="h-6 w-6" />
+      <span class="relative shrink-0">
+        <img
+          src="/foto-flotante.png"
+          alt="Asesora legal de Legal Educa"
+          width="48"
+          height="48"
+          class="h-12 w-12 rounded-full object-cover ring-2 ring-brand-100"
+        />
+        <span
+          class="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-500"
+          aria-hidden="true"
+        ></span>
       </span>
       <div class="min-w-0">
         <p class="font-serif text-base font-semibold leading-tight text-ink">
