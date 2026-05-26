@@ -110,7 +110,14 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
                 <label class={labelCls} for="topic">Tema de consulta</label>
                 <select class={inputCls} id="topic" name="Tema de consulta">
                   <option value="">Selecciona una opción</option>
-                  {services.map((s) => <option value={s.title}>{s.title}</option>)}
+                  {services.map((s) => (
+                    <optgroup label={s.title}>
+                      {s.areas.map((area) => (
+                        <option value={`${s.title} — ${area.title}`}>{area.title}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                  <option value="Consulta general">Consulta general</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
