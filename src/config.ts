@@ -11,6 +11,7 @@ export const site = {
   email: "contactolegaleduca@gmail.com",
   contactPerson: "Equipo Legal Educa",
   contactRole: "Abogadas especialistas en Derecho Educacional",
+  instagram: "https://www.instagram.com/legaleduca",
   // Completar cuando se tengan (se ocultan si quedan vacíos):
   phone: "",
   phoneHref: "",
