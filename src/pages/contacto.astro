@@ -4,8 +4,6 @@ import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
 import { site, services } from "../config";
 
-const configured = site.web3formsKey !== "TU_ACCESS_KEY_DE_WEB3FORMS";
-
 const contactItems = [
   { icon: "mail", label: "Correo", value: site.email, href: `mailto:${site.email}` },
   site.phone && { icon: "phone", label: "Teléfono", value: site.phone, href: `tel:${site.phoneHref}` },
@@ -85,10 +83,7 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
       <!-- Formulario -->
       <div class="reveal reveal-d1 lg:col-span-3">
         <div class="rounded-3xl border border-line bg-white p-6 sm:p-8 lg:p-10">
-          <form id="contact-form" data-configured={String(configured)} novalidate>
-            <input type="hidden" name="access_key" value={site.web3formsKey} />
-            <input type="hidden" name="subject" value="Nuevo contacto desde el sitio web de Legal Educa" />
-            <input type="hidden" name="from_name" value="Sitio web Legal Educa" />
+          <form id="contact-form" novalidate>
             <input
               type="checkbox"
               name="botcheck"
@@ -161,7 +156,6 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
       const btn = document.getElementById("submit-btn") as HTMLButtonElement;
       const btnText = document.getElementById("btn-text") as HTMLSpanElement;
       const status = document.getElementById("form-status") as HTMLDivElement;
-      const configured = form.dataset.configured === "true";
 
       const show = (msg: string, ok: boolean) => {
         status.textContent = msg;
@@ -181,13 +175,6 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
           form.reportValidity();
           return;
         }
-        if (!configured) {
-          show(
-            "El formulario aún no está conectado. Configura tu Access Key de Web3Forms en src/config.ts para recibir los mensajes.",
-            false
-          );
-          return;
-        }
 
         btn.disabled = true;
         const original = btnText.textContent;
@@ -196,19 +183,20 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
 
         try {
           const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
-          // Reply-To: al responder el correo, va directo a quien escribió.
-          data.replyto = data["Correo electrónico"] || "";
-          const res = await fetch("https://api.web3forms.com/submit", {
+          const res = await fetch("/api/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             body: JSON.stringify(data),
           });
-          const result = await res.json();
-          if (result.success) {
+          const result = await res.json().catch(() => ({ success: false }));
+          if (res.ok && result.success) {
             form.reset();
             show("¡Gracias! Tu mensaje fue enviado. Te responderemos pronto.", true);
           } else {
-            show("Hubo un problema al enviar. Inténtalo nuevamente o escríbenos directamente a nuestro correo.", false);
+            show(
+              result.error || "Hubo un problema al enviar. Inténtalo nuevamente o escríbenos a nuestro correo.",
+              false
+            );
           }
         } catch {
           show("No se pudo enviar. Revisa tu conexión e intenta otra vez.", false);

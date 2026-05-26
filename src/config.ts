@@ -15,10 +15,9 @@ export const site = {
   phone: "",
   phoneHref: "",
   address: "",
-  // Web3Forms: crea una clave gratuita en https://web3forms.com indicando
-  // abogadapriscilameza@gmail.com como correo destino. Pega aquí tu Access Key.
-  web3formsKey: "e60e1719-a553-46a5-823f-eb3a86a10602",
 };
+// El formulario de contacto se envía a través de api/contact.ts (Resend).
+// Configura RESEND_API_KEY y CONTACT_RECIPIENTS en Vercel > Environment Variables.
 
 export const nav = [
   { label: "Inicio", href: "/" },
