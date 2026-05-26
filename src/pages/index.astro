@@ -92,7 +92,7 @@ const heroPoints = [
         title="Asesoría legal para tu <span class='text-gradient'>establecimiento educacional</span>"
         subtitle="Te acompañamos en cada frente legal: cumplimiento de la normativa educacional, control de subvenciones, convivencia escolar y representación ante organismos públicos."
       />
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
         {
           featured.map((service, i) => (
             <ServiceCard service={service} index={i} href={`/servicios#${service.slug}`} />

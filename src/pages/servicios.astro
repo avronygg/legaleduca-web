@@ -8,9 +8,7 @@ import Icon from "../components/Icon.astro";
 import { services } from "../config";
 import s1 from "../assets/servicio-1.png";
 import s2 from "../assets/servicio-2.png";
-import s3 from "../assets/servicio-3.png";
-import s4 from "../assets/servicio-4.png";
-const serviceImages = [s1, s2, s3, s4];
+const serviceImages = [s1, s2];
 
 const steps = [
   { n: "01", title: "Conversación inicial", text: "Escuchamos tu caso sin compromiso y resolvemos tus primeras dudas." },
@@ -21,7 +19,7 @@ const steps = [
 ---
 <Layout
   title="Servicios de asesoría legal educacional | LegalEduca"
-  description="Servicios de asesoría legal educacional: cumplimiento normativo, control de subvenciones, convivencia escolar y representación ante la Superintendencia de Educación."
+  description="Asesoría jurídica y contable para establecimientos educacionales: convivencia escolar, representación ante organismos públicos, materias laborales y rendición de subvenciones."
 >
   <PageHero
     eyebrow="Servicios"
@@ -49,17 +47,20 @@ const steps = [
               <p class="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
                 {service.summary}
               </p>
-              <ul class="mt-6 grid gap-3 sm:grid-cols-2">
-                {service.benefits.map((b) => (
-                  <li class="flex items-start gap-2.5">
-                    <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+              <ul class="mt-7 space-y-5">
+                {service.areas.map((area) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
                       <Icon name="check" class="h-3 w-3" />
                     </span>
-                    <span class="text-sm leading-relaxed text-ink-soft">{b}</span>
+                    <div>
+                      <p class="font-serif text-base font-semibold text-ink">{area.title}</p>
+                      <p class="mt-1 text-sm leading-relaxed text-ink-soft">{area.description}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
-              <div class="mt-7">
+              <div class="mt-8">
                 <Button href="/contacto" icon="arrow">Consultar por este servicio</Button>
               </div>
             </div>

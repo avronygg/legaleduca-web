@@ -8,9 +8,9 @@ export const site = {
     "Asesoría jurídica educacional en Chile. Abogadas expertas en derecho educacional y auditores en rendición de subvenciones para tu establecimiento.",
   url: "https://legaleduca.cl",
   // Contacto real:
-  email: "abogadapriscilameza@gmail.com",
-  contactPerson: "Priscila Meza Quioza",
-  contactRole: "Abogada · Especialista en Derecho Educacional",
+  email: "contactolegaleduca@gmail.com",
+  contactPerson: "Equipo Legal Educa",
+  contactRole: "Abogadas especialistas en Derecho Educacional",
   // Completar cuando se tengan (se ocultan si quedan vacíos):
   phone: "",
   phoneHref: "",
@@ -26,71 +26,70 @@ export const nav = [
   { label: "Contacto", href: "/contacto" },
 ];
 
+export type ServiceArea = {
+  title: string;
+  description: string;
+};
+
 export type Service = {
   slug: string;
   title: string;
   audience: string;
   summary: string;
-  benefits: string[];
+  areas: ServiceArea[];
   icon: "balance" | "shield" | "users" | "landmark" | "audit";
 };
 
 export const services: Service[] = [
   {
     slug: "asesoria-juridica",
-    title: "Asesoría Jurídica de Alto Nivel",
+    title: "Asesoría Jurídica",
     audience: "Establecimientos educacionales",
     summary:
-      "Asesoría liderada por una abogada ex funcionaria de la Superintendencia de Educación, para garantizar el cumplimiento legal de tu institución.",
-    benefits: [
-      "Cumplimiento de la normativa educacional vigente",
-      "Mirada experta desde la fiscalización",
-      "Aplicación de la Ley de Inclusión",
-      "Prevención de riesgos legales",
+      "A cargo de abogadas ex funcionarias de la Superintendencia de Educación. Brindamos el apoyo necesario en la interpretación y aplicación de la normativa vigente, así como en la elaboración y actualización de reglamentos internos, protocolos y documentos oficiales ajustados a la legislación.",
+    areas: [
+      {
+        title: "Convivencia escolar",
+        description:
+          "Acompañamiento técnico, capacitación de equipos, charlas y actualización de instrumentos. Apoyo en la gestión de casos y elaboración de presentaciones, descargos y planes de mejora según las necesidades de cada establecimiento.",
+      },
+      {
+        title: "Representación ante organismos públicos",
+        description:
+          "Superintendencia de Educación, Ministerio de Educación, Contraloría, Juzgados de Policía Local, Tribunales de Familia (por vulneraciones de derecho), Corte de Apelaciones y otros organismos públicos.",
+      },
+      {
+        title: "Materias laborales",
+        description:
+          "Apoyo especializado en materias laborales propias de un establecimiento educacional: contratos y anexos, Ley Karin, desvinculaciones, pago de finiquitos, entre otras.",
+      },
+      {
+        title: "Responsabilidad penal adolescente",
+        description:
+          "Contamos con especialista en responsabilidad penal adolescente, a la que se ven expuestos los alumnos que cometan hechos susceptibles de ser juzgados por materias penales.",
+      },
     ],
     icon: "balance",
   },
   {
-    slug: "subvenciones",
-    title: "Control Riguroso de Subvenciones",
+    slug: "asesoria-contable",
+    title: "Asesoría Jurídica Contable",
     audience: "Sostenedores y administraciones",
     summary:
-      "Auditorías especializadas en rendición de cuentas para prevenir observaciones y multas en el uso de la subvención.",
-    benefits: [
-      "Auditoría de rendición de subvenciones",
-      "Prevención de observaciones y multas",
-      "Ordenamiento de respaldos y procesos",
-      "Auditores especializados",
+      "Equipo de auditores y contadores especialistas en rendición de cuentas y uso de subvenciones, que han demostrado avances reales en la gestión económica de los establecimientos educacionales.",
+    areas: [
+      {
+        title: "Rendición de cuentas y recursos",
+        description:
+          "Auditoría y acompañamiento en el uso de subvenciones, evitando la aplicación de multas y saldos iniciales negativos al momento de acreditar saldos.",
+      },
+      {
+        title: "Remuneraciones y asignaciones",
+        description:
+          "Asesoría en remuneraciones, pagos de bonos y asignaciones recibidas por los trabajadores del establecimiento, descuentos legales y pago de servicios.",
+      },
     ],
     icon: "audit",
-  },
-  {
-    slug: "convivencia-escolar",
-    title: "Fortalecimiento de la Convivencia Escolar",
-    audience: "Equipos directivos y docentes",
-    summary:
-      "Capacitación de equipos, gestión de casos y actualización de protocolos internos para una sana convivencia escolar.",
-    benefits: [
-      "Capacitación de equipos",
-      "Gestión y seguimiento de casos",
-      "Actualización de protocolos internos",
-      "Revisión de reglamentos internos",
-    ],
-    icon: "users",
-  },
-  {
-    slug: "representacion",
-    title: "Representación ante Organismos Públicos",
-    audience: "Instituciones educativas",
-    summary:
-      "Gestión experta ante la Superintendencia de Educación, el Ministerio de Educación y los Tribunales de Justicia.",
-    benefits: [
-      "Representación ante la Superintendencia",
-      "Gestiones ante el Ministerio de Educación",
-      "Defensa en Tribunales",
-      "Respuesta a fiscalizaciones",
-    ],
-    icon: "landmark",
   },
 ];
 
