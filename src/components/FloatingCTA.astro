@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
+import fotoFlotante from "../assets/foto-flotante.png";
 ---
 <div
   id="floating-cta"
@@ -13,12 +15,16 @@ import Icon from "./Icon.astro";
       class="relative flex items-start gap-3 rounded-2xl border border-line bg-white/95 p-4 pr-10 shadow-xl shadow-brand-900/10 backdrop-blur"
     >
       <span class="relative shrink-0">
-        <img
-          src="/foto-flotante.png"
+        <Image
+          src={fotoFlotante}
           alt="Asesora legal de Legal Educa"
-          width="48"
-          height="48"
+          widths={[48, 96, 144]}
+          sizes="48px"
+          format="webp"
+          quality={85}
           class="h-12 w-12 rounded-full object-cover ring-2 ring-brand-100"
+          loading="lazy"
+          decoding="async"
         />
         <span
           class="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-500"

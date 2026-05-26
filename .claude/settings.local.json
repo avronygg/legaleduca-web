@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p src/assets)",
+      "Bash(mv public/hero-1.png public/home-2.png public/servicio-1.png public/servicio-2.png public/servicio-3.png public/servicio-4.png public/quienessomos.png public/foto-flotante.png public/logo-legaleduca.png src/assets/)"
+    ]
+  }
+}

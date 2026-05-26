@@ -6,6 +6,11 @@ import Button from "../components/Button.astro";
 import Figure from "../components/Figure.astro";
 import Icon from "../components/Icon.astro";
 import { services } from "../config";
+import s1 from "../assets/servicio-1.png";
+import s2 from "../assets/servicio-2.png";
+import s3 from "../assets/servicio-3.png";
+import s4 from "../assets/servicio-4.png";
+const serviceImages = [s1, s2, s3, s4];
 
 const steps = [
   { n: "01", title: "Conversación inicial", text: "Escuchamos tu caso sin compromiso y resolvemos tus primeras dudas." },
@@ -60,7 +65,13 @@ const steps = [
             </div>
 
             <div class:list={["reveal reveal-d1", i % 2 === 1 ? "lg:order-1" : ""]}>
-              <Figure src={`/servicio-${i + 1}.png`} ratio="4/3" alt={service.title} />
+              <Figure
+                src={serviceImages[i]}
+                ratio="4/3"
+                widths={[400, 600, 800, 1200]}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                alt={service.title}
+              />
             </div>
           </div>
         ))

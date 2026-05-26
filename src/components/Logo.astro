@@ -1,13 +1,20 @@
 ---
+import { Image } from "astro:assets";
+import logo from "../assets/logo-legaleduca.png";
+
 interface Props {
   class?: string;
 }
 const { class: className = "" } = Astro.props;
 ---
-<img
-  src="/logo-legaleduca.png"
+<Image
+  src={logo}
   alt="LegalEduca · Asesoría jurídica educacional"
-  width="240"
-  height="60"
+  widths={[160, 240, 320, 480]}
+  sizes="160px"
+  format="webp"
+  quality={90}
   class={`h-9 w-auto sm:h-10 ${className}`}
+  loading="eager"
+  decoding="async"
 />

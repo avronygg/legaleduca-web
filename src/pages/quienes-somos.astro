@@ -6,6 +6,7 @@ import Button from "../components/Button.astro";
 import Figure from "../components/Figure.astro";
 import Icon from "../components/Icon.astro";
 import { values, aboutText } from "../config";
+import quienesImg from "../assets/quienessomos.png";
 
 const focusAreas = [
   "Revisión de reglamentos internos",
@@ -30,7 +31,13 @@ const focusAreas = [
   <section class="py-20 sm:py-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
       <div class="reveal">
-        <Figure src="/quienessomos.png" ratio="4/3" alt="Equipo de abogadas de Legal Educa en su oficina" />
+        <Figure
+          src={quienesImg}
+          ratio="4/3"
+          widths={[400, 600, 800, 1200]}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          alt="Equipo de abogadas de Legal Educa en su oficina"
+        />
       </div>
       <div class="reveal reveal-d1">
         <span class="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
