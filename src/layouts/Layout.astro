@@ -109,8 +109,8 @@ const schema = {
   ],
 };
 
-// Verificación de Google Search Console (opcional, vía env var).
-const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION as string | undefined;
+// Verificación de Google Search Console.
+const gscVerification = "nqskf-p9zC8hi03tYqHvhs7HCN1Oz3GVvHFFrzLO9l0";
 ---
 <!doctype html>
 <html lang="es-CL">
@@ -127,9 +127,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION as string | unde
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="theme-color" content="#5b2a86" />
 
-    {gscVerification && (
-      <meta name="google-site-verification" content={gscVerification} />
-    )}
+    <meta name="google-site-verification" content={gscVerification} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
