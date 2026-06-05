@@ -15,5 +15,26 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()]
+  integrations: [
+    sitemap({
+      changefreq: "weekly",
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize(item) {
+        const url = new URL(item.url);
+        const p = url.pathname;
+        if (p === "/") {
+          item.priority = 1.0;
+          item.changefreq = "weekly";
+        } else if (p.startsWith("/servicios")) {
+          item.priority = 0.9;
+        } else if (p.startsWith("/contacto")) {
+          item.priority = 0.8;
+        } else if (p.startsWith("/quienes-somos")) {
+          item.priority = 0.8;
+        }
+        return item;
+      },
+    }),
+  ],
 });

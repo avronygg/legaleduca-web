@@ -1,42 +1,116 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { getImage } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FloatingCTA from "../components/FloatingCTA.astro";
-import { site } from "../config";
+import { site, nav } from "../config";
+import heroImg from "../assets/hero-1.png";
 
 interface Props {
   title?: string;
   description?: string;
 }
 const { title, description } = Astro.props;
-// `title` ya viene optimizado y completo por página; el home usa el por defecto.
 const pageTitle = title ?? `${site.name} · ${site.tagline}`;
 const pageDesc = description ?? site.description;
 const canonical = new URL(Astro.url.pathname, site.url).href;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
+// Imagen Open Graph (1200x630, JPG optimizado) generada en build a partir del hero.
+const og = await getImage({
+  src: heroImg,
+  width: 1200,
+  height: 630,
+  format: "jpg",
+  quality: 82,
+});
+const ogImageUrl = new URL(og.src, site.url).href;
+
+// Etiqueta de página actual (para breadcrumb).
+const currentNavItem = nav.find((n) => (n.href === "/" ? path === "/" : path.startsWith(n.href)));
+const breadcrumbItems = [
+  { name: "Inicio", url: `${site.url}/` },
+  ...(path !== "/" && currentNavItem
+    ? [{ name: currentNavItem.label, url: new URL(currentNavItem.href, site.url).href }]
+    : []),
+].map((b, i) => ({
+  "@type": "ListItem",
+  position: i + 1,
+  name: b.name,
+  item: b.url,
+}));
+
+// Datos estructurados (JSON-LD) consolidados en @graph.
 const schema = {
   "@context": "https://schema.org",
-  "@type": "LegalService",
-  name: site.legalName,
-  alternateName: site.name,
-  description: site.description,
-  url: site.url,
-  email: site.email,
-  areaServed: { "@type": "Country", name: "Chile" },
-  knowsAbout: [
-    "Derecho educacional",
-    "Asesoría jurídica educacional",
-    "Rendición de subvenciones",
-    "Convivencia escolar",
-    "Ley de Inclusión",
-    "Superintendencia de Educación",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}#org`,
+      name: site.legalName,
+      alternateName: site.name,
+      url: site.url,
+      logo: new URL("/favicon.svg", site.url).href,
+      email: site.email,
+      sameAs: [site.instagram],
+      areaServed: { "@type": "Country", name: "Chile" },
+    },
+    {
+      "@type": "LegalService",
+      "@id": `${site.url}#legal-service`,
+      name: site.legalName,
+      description: site.description,
+      url: site.url,
+      email: site.email,
+      image: ogImageUrl,
+      parentOrganization: { "@id": `${site.url}#org` },
+      areaServed: { "@type": "Country", name: "Chile" },
+      knowsAbout: [
+        "Derecho educacional",
+        "Asesoría jurídica educacional",
+        "Rendición de subvenciones",
+        "Convivencia escolar",
+        "Ley de Inclusión",
+        "Ley Karin",
+        "Superintendencia de Educación",
+        "Ministerio de Educación",
+        "Responsabilidad penal adolescente",
+        "Tribunales de Familia",
+      ],
+      availableLanguage: "es-CL",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}#website`,
+      name: site.name,
+      url: site.url,
+      inLanguage: "es-CL",
+      description: site.description,
+      publisher: { "@id": `${site.url}#org` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: pageTitle,
+      description: pageDesc,
+      inLanguage: "es-CL",
+      isPartOf: { "@id": `${site.url}#website` },
+      primaryImageOfPage: ogImageUrl,
+      breadcrumb: { "@id": `${canonical}#breadcrumb` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: breadcrumbItems,
+    },
   ],
-  founder: { "@type": "Person", name: site.contactPerson },
-  availableLanguage: "es-CL",
-  sameAs: [site.instagram],
 };
+
+// Verificación de Google Search Console (opcional, vía env var).
+const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION as string | undefined;
 ---
 <!doctype html>
 <html lang="es-CL">
@@ -45,21 +119,38 @@ const schema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
-    <meta name="robots" content="index, follow" />
+    <meta name="author" content={site.legalName} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="theme-color" content="#5b2a86" />
 
+    {gscVerification && (
+      <meta name="google-site-verification" content={gscVerification} />
+    )}
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="es_CL" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.legalName} — ${site.tagline}`} />
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={`${site.legalName} — ${site.tagline}`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
