@@ -15,6 +15,12 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
+  image: {
+    // Habilitar rasterización de SVG: necesario para generar PNGs del favicon
+    // desde el SVG. El SVG es nuestro y solo contiene paths (sin scripts).
+    dangerouslyProcessSVG: true,
+  },
+
   integrations: [
     sitemap({
       changefreq: "weekly",

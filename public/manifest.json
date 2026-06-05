@@ -1,0 +1,15 @@
+{
+  "name": "Legal Educa · Asesoría jurídica educacional",
+  "short_name": "LegalEduca",
+  "description": "Asesoría jurídica educacional en Chile. Abogadas expertas en derecho educacional y auditores en rendición de subvenciones.",
+  "lang": "es-CL",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#5b2a86",
+  "background_color": "#faf9f7",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

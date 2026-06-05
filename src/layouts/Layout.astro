@@ -7,12 +7,14 @@ import Footer from "../components/Footer.astro";
 import FloatingCTA from "../components/FloatingCTA.astro";
 import { site, nav } from "../config";
 import heroImg from "../assets/hero-1.png";
+import faviconSvg from "../assets/favicon.svg";
 
 interface Props {
   title?: string;
   description?: string;
+  pageType?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
 }
-const { title, description } = Astro.props;
+const { title, description, pageType = "WebPage" } = Astro.props;
 const pageTitle = title ?? `${site.name} · ${site.tagline}`;
 const pageDesc = description ?? site.description;
 const canonical = new URL(Astro.url.pathname, site.url).href;
@@ -27,6 +29,14 @@ const og = await getImage({
   quality: 82,
 });
 const ogImageUrl = new URL(og.src, site.url).href;
+
+// Favicons PNG (varias resoluciones) generadas a partir del SVG.
+const fav16 = await getImage({ src: faviconSvg, width: 16, height: 16, format: "png" });
+const fav32 = await getImage({ src: faviconSvg, width: 32, height: 32, format: "png" });
+const fav96 = await getImage({ src: faviconSvg, width: 96, height: 96, format: "png" });
+const fav192 = await getImage({ src: faviconSvg, width: 192, height: 192, format: "png" });
+const fav512 = await getImage({ src: faviconSvg, width: 512, height: 512, format: "png" });
+const appleIcon = await getImage({ src: faviconSvg, width: 180, height: 180, format: "png" });
 
 // Etiqueta de página actual (para breadcrumb).
 const currentNavItem = nav.find((n) => (n.href === "/" ? path === "/" : path.startsWith(n.href)));
@@ -91,7 +101,7 @@ const schema = {
       publisher: { "@id": `${site.url}#org` },
     },
     {
-      "@type": "WebPage",
+      "@type": pageType,
       "@id": `${canonical}#webpage`,
       url: canonical,
       name: pageTitle,
@@ -100,6 +110,7 @@ const schema = {
       isPartOf: { "@id": `${site.url}#website` },
       primaryImageOfPage: ogImageUrl,
       breadcrumb: { "@id": `${canonical}#breadcrumb` },
+      about: { "@id": `${site.url}#org` },
     },
     {
       "@type": "BreadcrumbList",
@@ -124,7 +135,16 @@ const gscVerification = "nqskf-p9zC8hi03tYqHvhs7HCN1Oz3GVvHFFrzLO9l0";
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href={fav16.src} />
+    <link rel="icon" type="image/png" sizes="32x32" href={fav32.src} />
+    <link rel="icon" type="image/png" sizes="96x96" href={fav96.src} />
+    <link rel="icon" type="image/png" sizes="192x192" href={fav192.src} />
+    <link rel="icon" type="image/png" sizes="512x512" href={fav512.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleIcon.src} />
+    <link rel="shortcut icon" href={fav32.src} />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="alternate" hreflang="es-CL" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
     <meta name="theme-color" content="#5b2a86" />
 
     <meta name="google-site-verification" content={gscVerification} />
