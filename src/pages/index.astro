@@ -10,6 +10,45 @@ import heroImg from "../assets/hero-1.png";
 import propositoImg from "../assets/home-2.png";
 
 const featured = services.slice(0, 3);
+
+// Preguntas frecuentes derivadas del contenido real de los servicios.
+const faqs = [
+  {
+    q: "¿A quién va dirigido el servicio?",
+    a: "Acompañamos a establecimientos educacionales, sostenedores y equipos directivos en el cumplimiento de la normativa educacional vigente.",
+  },
+  {
+    q: "¿Quién lidera la asesoría jurídica?",
+    a: "Está a cargo de abogadas ex funcionarias de la Superintendencia de Educación, lo que aporta una mirada experta desde la fiscalización.",
+  },
+  {
+    q: "¿En qué consiste la asesoría en rendición de subvenciones?",
+    a: "Contamos con auditores y contadores especialistas en rendición de cuentas y uso de subvenciones, evitando la aplicación de multas y saldos iniciales negativos al momento de acreditar saldos.",
+  },
+  {
+    q: "¿Asesoran en Ley Karin y materias laborales propias de un colegio?",
+    a: "Sí. Brindamos apoyo especializado en contratos y anexos, Ley Karin, desvinculaciones, pago de finiquitos y demás materias laborales propias de un establecimiento educacional.",
+  },
+  {
+    q: "¿Representan a los establecimientos ante organismos públicos?",
+    a: "Sí. Gestionamos casos ante la Superintendencia de Educación, Ministerio de Educación, Contraloría, Juzgados de Policía Local, Tribunales de Familia y Corte de Apelaciones.",
+  },
+  {
+    q: "¿Cómo agendo una consulta?",
+    a: "Completa el formulario de contacto del sitio. Te responderemos a la brevedad para coordinar una primera conversación sin compromiso.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 const heroPoints = [
   "Liderazgo ex Superintendencia de Educación",
   "Auditoría especializada de subvenciones",
@@ -80,6 +119,7 @@ const heroPoints = [
         widths={[640, 960, 1280, 1600]}
         sizes="(max-width: 768px) 100vw, 1200px"
         alt="Equipo de abogadas de Legal Educa en reunión de asesoría legal educacional"
+        priority
       />
     </div>
   </section>
@@ -165,6 +205,34 @@ const heroPoints = [
       </div>
     </div>
   </section>
+
+  <!-- ===================== PREGUNTAS FRECUENTES ===================== -->
+  <section class="border-y border-line bg-cream-alt py-20 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Preguntas frecuentes"
+        title="Resolvemos tus <span class='text-gradient'>dudas más comunes</span>"
+        subtitle="Si tu pregunta no aparece aquí, escríbenos por el formulario y te respondemos personalmente."
+      />
+      <div class="reveal reveal-d1 mt-12 space-y-3">
+        {
+          faqs.map((f) => (
+            <details class="group rounded-2xl border border-line bg-white p-5 transition-colors open:border-brand-200 sm:p-6">
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-base font-semibold text-ink sm:text-lg">
+                {f.q}
+                <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition-transform group-open:rotate-180">
+                  <Icon name="arrow" class="h-3.5 w-3.5 rotate-90" />
+                </span>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-ink-soft sm:text-base">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- ===================== CTA FINAL ===================== -->
   <section class="py-20 sm:py-28">

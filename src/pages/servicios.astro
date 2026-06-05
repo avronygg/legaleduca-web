@@ -8,7 +8,35 @@ import Icon from "../components/Icon.astro";
 import { services } from "../config";
 import s1 from "../assets/servicio-1.png";
 import s2 from "../assets/servicio-2.png";
+import { site } from "../config";
 const serviceImages = [s1, s2];
+
+// Schema Service por cada servicio (datos derivados del contenido real).
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@graph": services.map((s) => ({
+    "@type": "Service",
+    "@id": `${site.url}/servicios#${s.slug}`,
+    name: s.title,
+    description: s.summary,
+    serviceType: s.title,
+    provider: { "@id": `${site.url}#org` },
+    areaServed: { "@type": "Country", name: "Chile" },
+    audience: { "@type": "Audience", audienceType: s.audience },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: s.title,
+      itemListElement: s.areas.map((a) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: a.title,
+          description: a.description,
+        },
+      })),
+    },
+  })),
+};
 
 const steps = [
   { n: "01", title: "Conversación inicial", text: "Escuchamos tu caso sin compromiso y resolvemos tus primeras dudas." },
@@ -27,6 +55,8 @@ const steps = [
     title="Asesoría legal para <span class='text-gradient'>establecimientos educacionales</span>"
     subtitle="Asesoría especializada para que tu establecimiento cumpla la normativa, evite sanciones y fortalezca su comunidad."
   />
+
+  <script type="application/ld+json" set:html={JSON.stringify(servicesSchema)} />
 
   <!-- Detalle de servicios -->
   <section class="py-20 sm:py-24">

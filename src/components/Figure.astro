@@ -12,6 +12,7 @@ interface Props {
   class?: string;
   widths?: number[];
   sizes?: string;
+  priority?: boolean;
 }
 const {
   src,
@@ -22,6 +23,7 @@ const {
   class: className = "",
   widths,
   sizes,
+  priority = false,
 } = Astro.props;
 
 const figureWidths = widths ?? [480, 800, 1200, 1600];
@@ -39,7 +41,8 @@ const imgClass = `h-full w-full border border-line object-cover ${rounded} ${cla
       quality={82}
       style={`aspect-ratio:${ratio}`}
       class={imgClass}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
       decoding="async"
     />
   ) : (

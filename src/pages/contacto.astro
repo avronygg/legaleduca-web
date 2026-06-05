@@ -4,6 +4,15 @@ import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
 import { site, services } from "../config";
 
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPoint",
+  contactType: "customer service",
+  email: site.email,
+  availableLanguage: ["es-CL"],
+  areaServed: { "@type": "Country", name: "Chile" },
+};
+
 const contactItems = [
   { icon: "mail", label: "Correo", value: site.email, href: `mailto:${site.email}` },
   site.phone && { icon: "phone", label: "Teléfono", value: site.phone, href: `tel:${site.phoneHref}` },
@@ -24,6 +33,8 @@ const labelCls = "mb-1.5 block text-sm font-medium text-ink";
     title="Solicita tu <span class='text-gradient'>asesoría legal educacional</span>"
     subtitle="Completa el formulario con los detalles de tu consulta y te responderemos a la brevedad."
   />
+
+  <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
 
   <section class="py-20 sm:py-24">
     <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-5 lg:gap-16 lg:px-8">
