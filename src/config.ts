@@ -8,7 +8,7 @@ export const site = {
     "Asesoría jurídica educacional en Chile. Abogadas expertas en derecho educacional y auditores en rendición de subvenciones para tu establecimiento.",
   url: "https://legaleduca.cl",
   // Contacto real:
-  email: "contactolegaleduca@gmail.com",
+  email: "contacto@legaleduca.cl",
   contactPerson: "Equipo Legal Educa",
   contactRole: "Abogadas especialistas en Derecho Educacional",
   instagram: "https://www.instagram.com/legaleduca",
