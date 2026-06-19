@@ -172,6 +172,28 @@ const gscVerification = "nqskf-p9zC8hi03tYqHvhs7HCN1Oz3GVvHFFrzLO9l0";
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
+    {site.gaId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
+        <script is:inline define:vars={{ gaId: site.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          // send_page_view:false porque enviamos page_view manualmente en cada
+          // navegacion para que View Transitions de Astro cuente bien las paginas.
+          gtag('config', gaId, { send_page_view: false });
+          document.addEventListener('astro:page-load', function () {
+            gtag('event', 'page_view', {
+              page_title: document.title,
+              page_location: location.href,
+              page_path: location.pathname + location.search,
+            });
+          });
+        </script>
+      </>
+    )}
+
     <ClientRouter />
   </head>
   <body>
